@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import util.enums.RateTypeEnum;
 
 
@@ -17,14 +18,19 @@ public class RoomRate implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomRateId;
-    @Column
+    @Column(nullable = false)
     private String name;
-    @Column
+    @Column(nullable = false)
+    private RoomType roomType;
+    @Column(nullable = false)
     private RateTypeEnum rateType;
-    @Column
+    @Column(nullable = false)
     private double ratePerNight;
+    @Column(nullable = false)
+    private boolean isPromotionOrPeakRate;
     private Date startDate;
     private Date endDate;
+    @Column(nullable = false)
     private boolean isEnabled;
     
 
