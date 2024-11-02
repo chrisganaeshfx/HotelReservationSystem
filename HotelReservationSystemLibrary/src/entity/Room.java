@@ -15,11 +15,13 @@ public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomId;
-    @Column
-    private int roomNumber; 
-    @Column
+    @Column(nullable = false, length = 4)
+    private int roomNumber;
+    @Column(nullable = false)
+    private RoomType roomType;
+    @Column(nullable = false)
     private boolean isAvailable;
-    @Column
+    @Column(nullable = false)
     private boolean isEnabled;
     
 
