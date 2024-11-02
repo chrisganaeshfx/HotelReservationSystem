@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import util.enums.ExceptionReportTypeEnum;
 
 
@@ -14,13 +15,28 @@ public class ExceptionReport implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long exceptionReportId;
+    @NotNull(message = "ExceptionReportTypeEnum cannot be null")
     @Column(nullable = false)
     private ExceptionReportTypeEnum type;
-    private String description;
+    @NotNull(message = "RoomType cannot be null")
     @Column(nullable = false)
     private RoomType roomType;
+    @NotNull(message = "Reservation cannot be null")
+    @Column(nullable = false)
+    private Reservation reservation;
+    private String description;
+    
+
+    public ExceptionReport() {
+    }
+
+    public ExceptionReport(ExceptionReportTypeEnum type, String description, RoomType roomType) {
+        this.type = type;
+        this.description = description;
+        this.roomType = roomType;
+    }
 
     public Long getExceptionReportId() {
         return exceptionReportId;
@@ -53,6 +69,15 @@ public class ExceptionReport implements Serializable {
     public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
     }
+    
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
     
     @Override
     public int hashCode() {

@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 import util.enums.RateTypeEnum;
 
 
@@ -18,21 +20,41 @@ public class RoomRate implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomRateId;
+    @NotNull(message = "Name cannot be null")
     @Column(nullable = false)
     private String name;
+    @NotNull(message = "RoomType cannot be null")
     @Column(nullable = false)
     private RoomType roomType;
+    @NotNull(message = "RateTypeEnum cannot be null")
     @Column(nullable = false)
     private RateTypeEnum rateType;
+    @NotNull(message = "RatePerNight cannot be null")
     @Column(nullable = false)
     private double ratePerNight;
+    @NotNull(message = "IsPromotionOrPeakRate cannot be null")
     @Column(nullable = false)
     private boolean isPromotionOrPeakRate;
+    @Future(message = "StartDate must be in the future")
     private Date startDate;
     private Date endDate;
+    @NotNull(message = "IsEnabled cannot be null")
     @Column(nullable = false)
     private boolean isEnabled;
-    
+
+    public RoomRate() {
+    }
+
+    public RoomRate(String name, RoomType roomType, RateTypeEnum rateType, double ratePerNight, boolean isPromotionOrPeakRate, Date startDate, Date endDate, boolean isEnabled) {
+        this.name = name;
+        this.roomType = roomType;
+        this.rateType = rateType;
+        this.ratePerNight = ratePerNight;
+        this.isPromotionOrPeakRate = isPromotionOrPeakRate;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isEnabled = isEnabled;
+    }
 
     public Long getRoomRateId() {
         return roomRateId;
@@ -49,6 +71,14 @@ public class RoomRate implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
 
     public RateTypeEnum getRateType() {
         return rateType;
@@ -64,6 +94,14 @@ public class RoomRate implements Serializable {
 
     public void setRatePerNight(double ratePerNight) {
         this.ratePerNight = ratePerNight;
+    }
+    
+    public boolean getIsPromotionOrPeakRate() {
+        return isPromotionOrPeakRate;
+    }
+
+    public void setIsPromotionOrPeakRate(boolean isPromotionOrPeakRate) {
+        this.isPromotionOrPeakRate = isPromotionOrPeakRate;
     }
 
     public Date getStartDate() {
@@ -82,7 +120,7 @@ public class RoomRate implements Serializable {
         this.endDate = endDate;
     }
 
-    public boolean isIsEnabled() {
+    public boolean getIsEnabled() {
         return isEnabled;
     }
 
@@ -116,6 +154,5 @@ public class RoomRate implements Serializable {
     public String toString() {
         return "entity.RoomRate[ id=" + getRoomRateId() + " ]";
     }
-
 
 }

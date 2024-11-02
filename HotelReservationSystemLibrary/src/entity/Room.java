@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -15,15 +18,28 @@ public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomId;
-    @Column(nullable = false, length = 4)
+    @Min(value = 100, message = "RoomNumber cannot be less than 100")
+    @Max(value = 9999, message = "RoomNumber cannot be more than 9999")
+    @NotNull(message = "RoomNumber cannot be null")
+    @Column(nullable = false, unique = true)
     private int roomNumber;
+    @NotNull(message = "RoomType cannot be null")
     @Column(nullable = false)
     private RoomType roomType;
     @Column(nullable = false)
     private boolean isAvailable;
     @Column(nullable = false)
     private boolean isEnabled;
-    
+
+    public Room() {
+    }
+
+    public Room(int roomNumber, RoomType roomType) {
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.isAvailable = true;
+        this.isEnabled = true;
+    }
 
     public Long getRoomId() {
         return roomId;
@@ -40,8 +56,16 @@ public class Room implements Serializable {
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
     }
+    
+    public RoomType getRoomType() {
+        return roomType;
+    }
 
-    public boolean isIsAvailable() {
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
+
+    public boolean getIsAvailable() {
         return isAvailable;
     }
 
@@ -49,7 +73,7 @@ public class Room implements Serializable {
         this.isAvailable = isAvailable;
     }
 
-    public boolean isIsEnabled() {
+    public boolean getIsEnabled() {
         return isEnabled;
     }
 
