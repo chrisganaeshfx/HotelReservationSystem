@@ -12,6 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -21,23 +24,50 @@ public class RoomType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomTypeId;
+    @NotNull(message = "Name cannot be null")
     @Column(nullable = false)
     private String name;
     private String description;
+    @NotNull(message = "Size cannot be null")
+    @Min(value = 1, message = "Size must be at least 1 sqm")
+    @Max(value = 200, message = "Size cannot exceed 200 sqm")
     @Column(nullable = false)
     private int size;
     private String bed;
+    @NotNull(message = "Capacity cannot be null")
+    @Min(value = 1, message = "Capacity must be at least 1 pax")
+    @Max(value = 20, message = "Capacity cannot exceed 20 pax")
     @Column(nullable = false)
     private int capacity;
     private String amenities;
+    @NotNull(message = "RoomInventoryOverTime cannot be null")
     @Column(nullable = false)
     private List<Integer> roomInventoryOverTime;
+    @NotNull(message = "PublishedRate cannot be null")
     @Column(nullable = false)
     private RoomRate publishedRate;
+    @NotNull(message = "NormalRate cannot be null")
     @Column(nullable = false)
     private RoomRate normalRate;
     private RoomRate peakRate;
     private RoomRate promotionRate;
+
+    public RoomType() {
+    }
+
+    public RoomType(String name, String description, int size, String bed, int capacity, String amenities, List<Integer> roomInventoryOverTime, RoomRate publishedRate, RoomRate normalRate, RoomRate peakRate, RoomRate promotionRate) {
+        this.name = name;
+        this.description = description;
+        this.size = size;
+        this.bed = bed;
+        this.capacity = capacity;
+        this.amenities = amenities;
+        this.roomInventoryOverTime = roomInventoryOverTime;
+        this.publishedRate = publishedRate;
+        this.normalRate = normalRate;
+        this.peakRate = peakRate;
+        this.promotionRate = promotionRate;
+    }
 
     public Long getRoomTypeId() {
         return roomTypeId;
