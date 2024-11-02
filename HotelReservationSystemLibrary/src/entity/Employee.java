@@ -46,6 +46,30 @@ public class Employee implements Serializable {
         this.employeeId = employeeId;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public EmployeeRoleEnum getRole() {
+        return role;
+    }
+
+    public void setRole(EmployeeRoleEnum role) {
+        this.role = role;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -70,5 +94,6 @@ public class Employee implements Serializable {
     public String toString() {
         return "entity.Employee[ id=" + employeeId + " ]";
     }
+
 
 }

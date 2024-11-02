@@ -4,12 +4,12 @@
  */
 package ejb.session.stateless;
 
+import entity.Room;
 import javax.ejb.Stateless;
-import session.stateless.RoomSessionBeanRemote;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Stateless
 public class RoomSessionBean implements RoomSessionBeanRemote, RoomSessionBeanLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }
