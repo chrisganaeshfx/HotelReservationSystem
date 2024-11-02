@@ -16,7 +16,7 @@ import util.exceptions.general.InvalidLoginCredentialException;
 import util.exceptions.general.UnknownPersistenceException;
 import util.exceptions.guest.DeleteGuestException;
 import util.exceptions.guest.GuestNotFoundException;
-import util.exceptions.guest.GuestUsernameExistException;
+import util.exceptions.guest.GuestExistException;
 import util.exceptions.guest.InvalidGuestUpdateException;
 
 @Stateless
@@ -25,8 +25,11 @@ public class GuestSessionBean implements GuestSessionBeanRemote, GuestSessionBea
     @PersistenceContext(unitName = "HotelReservationSystem-ejbPU")
     private EntityManager em;
 
+    public GuestSessionBean() {
+    }
+
     @Override
-    public Long createNewGuest(Guest newGuest) throws GuestUsernameExistException, UnknownPersistenceException {
+    public Long createNewGuest(Guest newGuest) throws GuestExistException, UnknownPersistenceException {
         try {
             em.persist(newGuest);
             em.flush();
@@ -34,7 +37,7 @@ public class GuestSessionBean implements GuestSessionBeanRemote, GuestSessionBea
         } catch (PersistenceException ex) {
             if (ex.getCause() != null && ex.getCause().getClass().getName().equals("org.eclipse.persistence.exceptions.DatabaseException")) {
                 if (ex.getCause().getCause() != null && ex.getCause().getCause().getClass().getName().equals("java.sql.SQLIntegrityConstraintViolationException")) {
-                    throw new GuestUsernameExistException("Username already exists!");
+                    throw new GuestExistException("Username already exists!");
                 } else {
                     throw new UnknownPersistenceException(ex.getMessage());
                 }

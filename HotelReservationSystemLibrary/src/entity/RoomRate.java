@@ -71,6 +71,14 @@ public class RoomRate implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
 
     public RateTypeEnum getRateType() {
         return rateType;
@@ -86,6 +94,14 @@ public class RoomRate implements Serializable {
 
     public void setRatePerNight(double ratePerNight) {
         this.ratePerNight = ratePerNight;
+    }
+    
+    public boolean getIsPromotionOrPeakRate() {
+        return isPromotionOrPeakRate;
+    }
+
+    public void setIsPromotionOrPeakRate(boolean isPromotionOrPeakRate) {
+        this.isPromotionOrPeakRate = isPromotionOrPeakRate;
     }
 
     public Date getStartDate() {
@@ -104,7 +120,7 @@ public class RoomRate implements Serializable {
         this.endDate = endDate;
     }
 
-    public boolean isIsEnabled() {
+    public boolean getIsEnabled() {
         return isEnabled;
     }
 
@@ -138,6 +154,5 @@ public class RoomRate implements Serializable {
     public String toString() {
         return "entity.RoomRate[ id=" + getRoomRateId() + " ]";
     }
-
 
 }

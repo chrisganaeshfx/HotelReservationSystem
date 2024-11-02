@@ -70,6 +70,15 @@ public class ExceptionReport implements Serializable {
         this.roomType = roomType;
     }
     
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;

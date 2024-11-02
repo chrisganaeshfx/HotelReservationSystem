@@ -9,13 +9,13 @@ import java.util.List;
 import javax.ejb.Remote;
 import util.exceptions.employee.DeleteEmployeeException;
 import util.exceptions.employee.EmployeeNotFoundException;
-import util.exceptions.employee.EmployeeUsernameExistException;
+import util.exceptions.employee.EmployeeExistException;
 import util.exceptions.employee.InvalidEmployeeUpdateException;
 import util.exceptions.general.UnknownPersistenceException;
 
 @Remote
 public interface EmployeeSessionBeanRemote {
-    public Long createNewEmployee(Employee newEmployee) throws EmployeeUsernameExistException, UnknownPersistenceException;
+    public Long createNewEmployee(Employee newEmployee) throws EmployeeExistException, UnknownPersistenceException;
 
     public List<Employee> retrieveAllEmployees();
 

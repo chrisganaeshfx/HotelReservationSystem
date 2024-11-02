@@ -4,7 +4,14 @@
  */
 package ejb.session.stateless;
 
+import entity.Room;
+import java.util.List;
 import javax.ejb.Local;
+import util.exceptions.general.UnknownPersistenceException;
+import util.exceptions.room.DeleteRoomException;
+import util.exceptions.room.InvalidRoomUpdateException;
+import util.exceptions.room.RoomNotFoundException;
+import util.exceptions.room.RoomExistException;
 
 /**
  *
@@ -12,5 +19,17 @@ import javax.ejb.Local;
  */
 @Local
 public interface RoomSessionBeanLocal {
+
+    public Long createNewRoom(Room newRoom) throws RoomExistException, UnknownPersistenceException;
+
+    public List<Room> retrieveAllRooms();
+
+    public Room retrieveRoomById(Long roomId) throws RoomNotFoundException;
+
+    public Room retrieveRoomByRoomNumber(int roomNumber) throws RoomNotFoundException;
+
+    public void updateRoom(Room updatedRoom) throws RoomNotFoundException, InvalidRoomUpdateException;
+
+    public void deleteRoom(Long roomId) throws RoomNotFoundException, DeleteRoomException;
     
 }

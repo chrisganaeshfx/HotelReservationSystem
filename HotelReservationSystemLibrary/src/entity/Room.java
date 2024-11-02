@@ -21,7 +21,7 @@ public class Room implements Serializable {
     @Min(value = 100, message = "RoomNumber cannot be less than 100")
     @Max(value = 9999, message = "RoomNumber cannot be more than 9999")
     @NotNull(message = "RoomNumber cannot be null")
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private int roomNumber;
     @NotNull(message = "RoomType cannot be null")
     @Column(nullable = false)
@@ -56,8 +56,16 @@ public class Room implements Serializable {
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
     }
+    
+    public RoomType getRoomType() {
+        return roomType;
+    }
 
-    public boolean isIsAvailable() {
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
+
+    public boolean getIsAvailable() {
         return isAvailable;
     }
 
@@ -65,7 +73,7 @@ public class Room implements Serializable {
         this.isAvailable = isAvailable;
     }
 
-    public boolean isIsEnabled() {
+    public boolean getIsEnabled() {
         return isEnabled;
     }
 

@@ -12,13 +12,13 @@ import util.exceptions.general.InvalidLoginCredentialException;
 import util.exceptions.general.UnknownPersistenceException;
 import util.exceptions.guest.DeleteGuestException;
 import util.exceptions.guest.GuestNotFoundException;
-import util.exceptions.guest.GuestUsernameExistException;
+import util.exceptions.guest.GuestExistException;
 import util.exceptions.guest.InvalidGuestUpdateException;
 
 @Remote
 public interface GuestSessionBeanRemote {
 
-    public Long createNewGuest(Guest newGuest) throws GuestUsernameExistException, UnknownPersistenceException;
+    public Long createNewGuest(Guest newGuest) throws GuestExistException, UnknownPersistenceException;
 
     public List<Guest> retrieveAllGuests();
 

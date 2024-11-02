@@ -13,7 +13,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import util.exceptions.employee.DeleteEmployeeException;
 import util.exceptions.employee.EmployeeNotFoundException;
-import util.exceptions.employee.EmployeeUsernameExistException;
+import util.exceptions.employee.EmployeeExistException;
 import util.exceptions.employee.InvalidEmployeeUpdateException;
 import util.exceptions.general.InvalidLoginCredentialException;
 import util.exceptions.general.UnknownPersistenceException;
@@ -24,8 +24,11 @@ public class EmployeeSessionBean implements EmployeeSessionBeanRemote, EmployeeS
     @PersistenceContext(unitName = "HotelReservationSystem-ejbPU")
     private EntityManager em;
 
+    public EmployeeSessionBean() {
+    }
+
     @Override
-    public Long createNewEmployee(Employee newEmployee) throws EmployeeUsernameExistException, UnknownPersistenceException {
+    public Long createNewEmployee(Employee newEmployee) throws EmployeeExistException, UnknownPersistenceException {
         try {
             em.persist(newEmployee);
             em.flush();
@@ -34,7 +37,7 @@ public class EmployeeSessionBean implements EmployeeSessionBeanRemote, EmployeeS
         catch (PersistenceException ex) {
             if (ex.getCause() != null && ex.getCause().getClass().getName().equals("org.eclipse.persistence.exceptions.DatabaseException")) {
                 if (ex.getCause().getCause() != null && ex.getCause().getCause().getClass().getName().equals("java.sql.SQLIntegrityConstraintViolationException")) {
-                    throw new EmployeeUsernameExistException("Username already exists!");
+                    throw new EmployeeExistException("Username already exists!");
                 } else {
                     throw new UnknownPersistenceException(ex.getMessage());
                 }
