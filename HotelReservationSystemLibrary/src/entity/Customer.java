@@ -1,84 +1,68 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 @Entity
-public class Customer implements Serializable {
+public class Customer extends Guest implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customerId;
-    @NotNull(message = "Username cannot be null")
+    @NotNull(message = "Name cannot be null")
+    @Column(nullable = false)
+    private String name;
+    @NotNull(message = "Email cannot be null")
+    @Email(message = "Email should be valid")
     @Column(nullable = false, unique = true)
-    private String username;
-    @NotNull
-    @Size(max = 15, message = "Password cannot exceed 15 characters")
-    @Column(nullable = false, length = 15)
-    private String password;
+    private String email;
 
     public Customer() {
     }
 
-    public Customer(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public Customer(String name, String email, String username, String password) {
+        super(username, password);
+        this.name = name;
+        this.email = email;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (getCustomerId() != null ? getCustomerId().hashCode() : 0);
+        hash += (super.getGuestId() != null ? super.getGuestId().hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the customerId fields are not set
-        if (!(object instanceof Customer)) {
-            return false;
-        }
-        Customer other = (Customer) object;
-        if ((this.getCustomerId() == null && other.getCustomerId() != null) || (this.getCustomerId() != null && !this.customerId.equals(other.customerId))) {
-            return false;
-        }
-        return true;
+    public String toString() {
+        return "entity.Guest[ id=" + super.getGuestId() + " ]";
     }
 
-    @Override
-    public String toString() {
-        return "entity.Customer[ id=" + getCustomerId() + " ]";
-    }
+
 }

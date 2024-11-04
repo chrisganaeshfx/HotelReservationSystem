@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -16,6 +20,7 @@ import util.enums.RateTypeEnum;
 @Entity
 public class RoomRate implements Serializable {
 
+    //Own attributes
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +28,6 @@ public class RoomRate implements Serializable {
     @NotNull(message = "Name cannot be null")
     @Column(nullable = false)
     private String name;
-    @NotNull(message = "RoomType cannot be null")
-    @Column(nullable = false)
-    private RoomType roomType;
     @NotNull(message = "RateTypeEnum cannot be null")
     @Column(nullable = false)
     private RateTypeEnum rateType;
@@ -42,6 +44,13 @@ public class RoomRate implements Serializable {
     @Column(nullable = false)
     private boolean isEnabled;
 
+    //Entity relationship atttributes
+    @NotNull(message = "RoomType cannot be null")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "roomTypeId", nullable = false)
+    private RoomType roomType;
+    
+    
     public RoomRate() {
     }
 

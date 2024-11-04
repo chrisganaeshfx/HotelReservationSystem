@@ -70,7 +70,6 @@ public class ExceptionReportSessionBean implements ExceptionReportSessionBeanRem
             validateExceptionReport(updatedExceptionReport);
 
             exceptionReportToUpdate.setType(updatedExceptionReport.getType());
-            exceptionReportToUpdate.setRoomType(updatedExceptionReport.getRoomType());
             exceptionReportToUpdate.setReservation(updatedExceptionReport.getReservation());
             exceptionReportToUpdate.setDescription(updatedExceptionReport.getDescription());
         } else {
@@ -90,10 +89,7 @@ public class ExceptionReportSessionBean implements ExceptionReportSessionBeanRem
 
     private void validateExceptionReport(ExceptionReport exceptionReport) throws InvalidExceptionReportException {
         if (exceptionReport.getType() == null) {
-            throw new InvalidExceptionReportException("Exception report type cannot be null.");
-        }
-        if (exceptionReport.getRoomType() == null) {
-            throw new InvalidExceptionReportException("Room type cannot be null.");
+            throw new InvalidExceptionReportException("ExceptionReportTypeEnum cannot be null.");
         }
         if (exceptionReport.getReservation() == null) {
             throw new InvalidExceptionReportException("Reservation cannot be null.");

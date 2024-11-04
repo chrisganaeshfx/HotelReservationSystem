@@ -5,7 +5,7 @@
 
 package ejb.session.stateless;
 
-import entity.Guest;
+import entity.Customer;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,20 +20,20 @@ import util.exceptions.guest.GuestExistException;
 import util.exceptions.guest.InvalidGuestUpdateException;
 
 @Stateless
-public class GuestSessionBean implements GuestSessionBeanRemote, GuestSessionBeanLocal {
+public class CustomerSessionBean implements CustomerSessionBeanRemote, CustomerSessionBeanLocal {
 
     @PersistenceContext(unitName = "HotelReservationSystem-ejbPU")
     private EntityManager em;
 
-    public GuestSessionBean() {
+    public CustomerSessionBean() {
     }
 
     @Override
-    public Long createNewGuest(Guest newGuest) throws GuestExistException, UnknownPersistenceException {
+    public Long createNewCustomer(Customer newCustomer) throws GuestExistException, UnknownPersistenceException {
         try {
-            em.persist(newGuest);
+            em.persist(newCustomer);
             em.flush();
-            return newGuest.getCustomerId();
+            return newCustomer.getGuestId();
         } catch (PersistenceException ex) {
             if (ex.getCause() != null && ex.getCause().getClass().getName().equals("org.eclipse.persistence.exceptions.DatabaseException")) {
                 if (ex.getCause().getCause() != null && ex.getCause().getCause().getClass().getName().equals("java.sql.SQLIntegrityConstraintViolationException")) {
@@ -48,63 +48,63 @@ public class GuestSessionBean implements GuestSessionBeanRemote, GuestSessionBea
     }
 
     @Override
-    public List<Guest> retrieveAllGuests() {
+    public List<Customer> retrieveAllCustomers() {
         Query query = em.createQuery("SELECT g FROM Guest g");
         return query.getResultList();
     }
 
     @Override
-    public Guest retrieveGuestById(Long guestId) throws GuestNotFoundException {
-        Guest guest = em.find(Guest.class, guestId);
+    public Customer retrieveCustomerByGuestId(Long guestId) throws GuestNotFoundException {
+        Customer guest = em.find(Customer.class, guestId);
         if (guest == null) {
-            throw new GuestNotFoundException("Guest ID " + guestId + " does not exist!");
+            throw new GuestNotFoundException("Customer with Guest ID " + guestId + " does not exist!");
         }
         return guest;
     }
 
     @Override
-    public Guest retrieveGuestByUsername(String username) throws GuestNotFoundException {
+    public Customer retrieveCustomerByGuestUsername(String username) throws GuestNotFoundException {
         try {
             Query query = em.createQuery("SELECT g FROM Guest g WHERE g.username = :inUsername");
             query.setParameter("inUsername", username);
-            return (Guest) query.getSingleResult();
+            return (Customer) query.getSingleResult();
         } catch (javax.persistence.NoResultException ex) {
-            throw new GuestNotFoundException("Guest with username " + username + " does not exist!");
+            throw new GuestNotFoundException("Guest with GuestUsername " + username + " does not exist!");
         }
     }
 
     @Override
-    public void updateGuest(Guest updatedGuest) throws GuestNotFoundException, InvalidGuestUpdateException {
-        if (updatedGuest != null && updatedGuest.getCustomerId() != null) {
-            Guest guestToUpdate = retrieveGuestById(updatedGuest.getCustomerId());
+    public void updateCustomer(Customer updatedCustomer) throws GuestNotFoundException, InvalidGuestUpdateException {
+        if (updatedCustomer != null && updatedCustomer.getGuestId() != null) {
+            Customer guestToUpdate = retrieveCustomerByGuestId(updatedCustomer.getGuestId());
 
             if (guestToUpdate == null) {
-                throw new GuestNotFoundException("Guest to update not found with ID: " + updatedGuest.getCustomerId());
+                throw new GuestNotFoundException("Customer to update not found with Guest ID: " + updatedCustomer.getGuestId());
             }
-            guestToUpdate.setUsername(updatedGuest.getUsername());
-            guestToUpdate.setPassword(updatedGuest.getPassword());
-            guestToUpdate.setName(updatedGuest.getName());
-            guestToUpdate.setEmail(updatedGuest.getEmail());
+            guestToUpdate.setUsername(updatedCustomer.getUsername());
+            guestToUpdate.setPassword(updatedCustomer.getPassword());
+            guestToUpdate.setName(updatedCustomer.getName());
+            guestToUpdate.setEmail(updatedCustomer.getEmail());
 
         } else {
-            throw new InvalidGuestUpdateException("Guest information to be updated is invalid or incomplete!");
+            throw new InvalidGuestUpdateException("Customer information to be updated is invalid or incomplete!");
         }
     }
 
     @Override
-    public void deleteGuest(Long guestId) throws GuestNotFoundException, DeleteGuestException {
-        Guest guestToRemove = retrieveGuestById(guestId);
+    public void deleteCustomer(Long guestId) throws GuestNotFoundException, DeleteGuestException {
+        Customer guestToRemove = retrieveCustomerByGuestId(guestId);
         try {
             em.remove(guestToRemove);
         } catch (PersistenceException ex) {
-            throw new DeleteGuestException("Unable to delete guest with ID " + guestId);
+            throw new DeleteGuestException("Unable to delete customer with Guest ID " + guestId);
         }
     }
 
     @Override
-    public Guest guestLogin(String username, String password) throws InvalidLoginCredentialException {
+    public Customer customerLogin(String username, String password) throws InvalidLoginCredentialException {
         try {
-            Guest guest = retrieveGuestByUsername(username);
+            Customer guest = retrieveCustomerByGuestUsername(username);
             if (guest.getPassword().equals(password)) {
                 return guest;
             } else {
