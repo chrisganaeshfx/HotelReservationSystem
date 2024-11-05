@@ -7,15 +7,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
-import util.enums.RateTypeEnum;
+import util.enums.RoomRateTypeEnum;
 
 
 @Entity
 public class RoomRate implements Serializable {
 
+    //Own attributes
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +28,9 @@ public class RoomRate implements Serializable {
     @NotNull(message = "Name cannot be null")
     @Column(nullable = false)
     private String name;
-    @NotNull(message = "RoomType cannot be null")
-    @Column(nullable = false)
-    private RoomType roomType;
     @NotNull(message = "RateTypeEnum cannot be null")
     @Column(nullable = false)
-    private RateTypeEnum rateType;
+    private RoomRateTypeEnum rateType;
     @NotNull(message = "RatePerNight cannot be null")
     @Column(nullable = false)
     private double ratePerNight;
@@ -42,10 +44,17 @@ public class RoomRate implements Serializable {
     @Column(nullable = false)
     private boolean isEnabled;
 
+    //Entity relationship atttributes
+    @NotNull(message = "RoomType cannot be null")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "roomTypeId", nullable = false)
+    private RoomType roomType;
+    
+    
     public RoomRate() {
     }
 
-    public RoomRate(String name, RoomType roomType, RateTypeEnum rateType, double ratePerNight, boolean isPromotionOrPeakRate, Date startDate, Date endDate, boolean isEnabled) {
+    public RoomRate(String name, RoomType roomType, RoomRateTypeEnum rateType, double ratePerNight, boolean isPromotionOrPeakRate, Date startDate, Date endDate, boolean isEnabled) {
         this.name = name;
         this.roomType = roomType;
         this.rateType = rateType;
@@ -80,11 +89,11 @@ public class RoomRate implements Serializable {
         this.roomType = roomType;
     }
 
-    public RateTypeEnum getRateType() {
+    public RoomRateTypeEnum getRateType() {
         return rateType;
     }
 
-    public void setRateType(RateTypeEnum rateType) {
+    public void setRateType(RoomRateTypeEnum rateType) {
         this.rateType = rateType;
     }
 

@@ -84,10 +84,7 @@ public class RoomTypeSessionBean implements RoomTypeSessionBeanRemote, RoomTypeS
             roomTypeToUpdate.setCapacity(updatedRoomType.getCapacity());
             roomTypeToUpdate.setAmenities(updatedRoomType.getAmenities());
             roomTypeToUpdate.setRoomInventoryOverTime(updatedRoomType.getRoomInventoryOverTime());
-            roomTypeToUpdate.setPublishedRate(updatedRoomType.getPublishedRate());
-            roomTypeToUpdate.setNormalRate(updatedRoomType.getNormalRate());
-            roomTypeToUpdate.setPeakRate(updatedRoomType.getPeakRate());
-            roomTypeToUpdate.setPromotionRate(updatedRoomType.getPromotionRate());
+            roomTypeToUpdate.setRoomRates(roomTypeToUpdate.getRoomRates());
         } else {
             throw new InvalidRoomTypeUpdateException("Room type information to be updated is invalid or incomplete!");
         }

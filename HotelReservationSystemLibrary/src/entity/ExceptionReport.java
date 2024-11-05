@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import util.enums.ExceptionReportTypeEnum;
 
@@ -13,6 +16,7 @@ import util.enums.ExceptionReportTypeEnum;
 @Entity
 public class ExceptionReport implements Serializable {
 
+    //Own attributes
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,22 +24,21 @@ public class ExceptionReport implements Serializable {
     @NotNull(message = "ExceptionReportTypeEnum cannot be null")
     @Column(nullable = false)
     private ExceptionReportTypeEnum type;
-    @NotNull(message = "RoomType cannot be null")
-    @Column(nullable = false)
-    private RoomType roomType;
-    @NotNull(message = "Reservation cannot be null")
-    @Column(nullable = false)
-    private Reservation reservation;
     private String description;
     
+    //Entity relationship attributes
+    @NotNull(message = "Reservation cannot be null")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "reservationId", nullable = false)
+    private Reservation reservation;    
 
     public ExceptionReport() {
     }
 
-    public ExceptionReport(ExceptionReportTypeEnum type, String description, RoomType roomType) {
+    public ExceptionReport(ExceptionReportTypeEnum type, String description, Reservation reservation) {
         this.type = type;
+        this.reservation = reservation;
         this.description = description;
-        this.roomType = roomType;
     }
 
     public Long getExceptionReportId() {
@@ -61,15 +64,7 @@ public class ExceptionReport implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public RoomType getRoomType() {
-        return roomType;
-    }
-
-    public void setRoomType(RoomType roomType) {
-        this.roomType = roomType;
-    }
-    
+  
     public Reservation getReservation() {
         return reservation;
     }

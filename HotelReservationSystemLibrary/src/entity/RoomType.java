@@ -6,12 +6,17 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -20,6 +25,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class RoomType implements Serializable {
 
+    //Own attributes
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,19 +49,16 @@ public class RoomType implements Serializable {
     @NotNull(message = "RoomInventoryOverTime cannot be null")
     @Column(nullable = false)
     private List<Integer> roomInventoryOverTime;
-    @NotNull(message = "PublishedRate cannot be null")
-    @Column(nullable = false)
-    private RoomRate publishedRate;
-    @NotNull(message = "NormalRate cannot be null")
-    @Column(nullable = false)
-    private RoomRate normalRate;
-    private RoomRate peakRate;
-    private RoomRate promotionRate;
+    
+    //Entity relationship atttributes
+    @NotNull(message = "roomRates cannot be null")
+    @OneToMany(mappedBy = "roomType")
+    private List<RoomRate> roomRates;
 
     public RoomType() {
     }
 
-    public RoomType(String name, String description, int size, String bed, int capacity, String amenities, List<Integer> roomInventoryOverTime, RoomRate publishedRate, RoomRate normalRate, RoomRate peakRate, RoomRate promotionRate) {
+    public RoomType(String name, String description, int size, String bed, int capacity, String amenities, List<Integer> roomInventoryOverTime) {
         this.name = name;
         this.description = description;
         this.size = size;
@@ -63,10 +66,7 @@ public class RoomType implements Serializable {
         this.capacity = capacity;
         this.amenities = amenities;
         this.roomInventoryOverTime = roomInventoryOverTime;
-        this.publishedRate = publishedRate;
-        this.normalRate = normalRate;
-        this.peakRate = peakRate;
-        this.promotionRate = promotionRate;
+        this.roomRates = new ArrayList<RoomRate>();
     }
 
     public Long getRoomTypeId() {
@@ -132,39 +132,14 @@ public class RoomType implements Serializable {
     public void setRoomInventoryOverTime(List<Integer> roomInventoryOverTime) {
         this.roomInventoryOverTime = roomInventoryOverTime;
     }
-
-    public RoomRate getPublishedRate() {
-        return publishedRate;
+    
+    public List<RoomRate> getRoomRates() {
+        return roomRates;
     }
 
-    public void setPublishedRate(RoomRate publishedRate) {
-        this.publishedRate = publishedRate;
+    public void setRoomRates(List<RoomRate> roomRates) {
+        this.roomRates = roomRates;
     }
-
-    public RoomRate getNormalRate() {
-        return normalRate;
-    }
-
-    public void setNormalRate(RoomRate normalRate) {
-        this.normalRate = normalRate;
-    }
-
-    public RoomRate getPeakRate() {
-        return peakRate;
-    }
-
-    public void setPeakRate(RoomRate peakRate) {
-        this.peakRate = peakRate;
-    }
-
-    public RoomRate getPromotionRate() {
-        return promotionRate;
-    }
-
-    public void setPromotionRate(RoomRate promotionRate) {
-        this.promotionRate = promotionRate;
-    }
-
 
     @Override
     public int hashCode() {

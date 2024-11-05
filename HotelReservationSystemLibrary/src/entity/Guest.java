@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package entity;
 
 import java.io.Serializable;
@@ -11,57 +6,79 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Entity
-public class Guest extends Customer implements Serializable {
+public class Guest implements Serializable {
 
-    @NotNull(message = "Name cannot be null")
-    @Column(nullable = false)
-    private String name;
-    @NotNull(message = "Email cannot be null")
-    @Email(message = "Email should be valid")
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long guestId;
+    @NotNull(message = "Username cannot be null")
     @Column(nullable = false, unique = true)
-    private String email;
+    private String username;
+    @NotNull
+    @Size(max = 15, message = "Password cannot exceed 15 characters")
+    @Column(nullable = false, length = 15)
+    private String password;
 
     public Guest() {
     }
 
-    public Guest(String name, String email, String username, String password) {
-        super(username, password);
-        this.name = name;
-        this.email = email;
+    public Guest(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public Long getGuestId() {
+        return guestId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setGuestId(Long guestId) {
+        this.guestId = guestId;
     }
     
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (super.getCustomerId() != null ? super.getCustomerId().hashCode() : 0);
+        hash += (getGuestId() != null ? getGuestId().hashCode() : 0);
         return hash;
     }
 
     @Override
-    public String toString() {
-        return "entity.Guest[ id=" + super.getCustomerId() + " ]";
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the guestId fields are not set
+        if (!(object instanceof Guest)) {
+            return false;
+        }
+        Guest other = (Guest) object;
+        if ((this.getGuestId() == null && other.getGuestId() != null) || (this.getGuestId() != null && !this.guestId.equals(other.guestId))) {
+            return false;
+        }
+        return true;
     }
 
-
+    @Override
+    public String toString() {
+        return "entity.Customer[ id=" + getGuestId() + " ]";
+    }
 }

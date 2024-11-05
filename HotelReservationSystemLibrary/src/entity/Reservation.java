@@ -1,12 +1,17 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -17,16 +22,11 @@ import util.enums.ReservationStatusEnum;
 @Entity
 public class Reservation implements Serializable {
 
+    //Own attributes
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
-    @NotNull(message = "Customer cannot be null")
-    @Column(nullable = false)
-    private Customer customer;
-    @NotNull(message = "RoomType cannot be null")
-    @Column(nullable = false)
-    private RoomType roomType;
     @NotNull(message = "NumRooms cannot be null")
     @Min(value = 1, message = "NumRooms must at least be 1")
     @Max(value = 10, message = "NumRooms cannot exceed 10")
@@ -44,11 +44,25 @@ public class Reservation implements Serializable {
     @NotNull(message = "Amount cannot be null")
     @Column(nullable = false)
     private double amount;
+    
+    //Entity relationship attributes
+    @NotNull(message = "Customer cannot be null")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "customerId", nullable = false)
+    private Guest customer;
+    
+    @NotNull(message = "RoomType cannot be null")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "roomTypeId", nullable = false)
+    private RoomType roomType;
+    
+    @OneToMany(mappedBy = "allocatedReservation")
+    private List<Room> allocatedRooms;
 
     public Reservation() {
     }
 
-    public Reservation(Customer customer, RoomType roomType, int numRooms, Date checkInDate, Date checkOutDate, double amount) {
+    public Reservation(Guest customer, RoomType roomType, int numRooms, Date checkInDate, Date checkOutDate, double amount) {
         this.customer = customer;
         this.roomType = roomType;
         this.numRooms = numRooms;
@@ -56,6 +70,7 @@ public class Reservation implements Serializable {
         this.checkOutDate = checkOutDate;
         this.status = ReservationStatusEnum.RESERVED;
         this.amount = amount;
+        this.allocatedRooms = new ArrayList<Room>();
     }
 
     
@@ -67,11 +82,11 @@ public class Reservation implements Serializable {
         this.reservationId = reservationId;
     }
     
-    public Customer getCustomer() {
+    public Guest getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(Guest customer) {
         this.customer = customer;
     }
 
@@ -122,6 +137,14 @@ public class Reservation implements Serializable {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+    
+    public List<Room> getAllocatedRooms() {
+        return allocatedRooms;
+    }
+
+    public void setAllocatedRooms(List<Room> allocatedRooms) {
+        this.allocatedRooms = allocatedRooms;
+    }
 
     @Override
     public int hashCode() {
@@ -147,5 +170,6 @@ public class Reservation implements Serializable {
     public String toString() {
         return "entity.Reservation[ id=" + reservationId + " ]";
     }
+
 
 }

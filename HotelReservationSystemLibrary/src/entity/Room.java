@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -14,6 +16,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Room implements Serializable {
 
+    //Own attributes
     private static long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +26,22 @@ public class Room implements Serializable {
     @NotNull(message = "RoomNumber cannot be null")
     @Column(nullable = false, unique = true)
     private int roomNumber;
-    @NotNull(message = "RoomType cannot be null")
-    @Column(nullable = false)
-    private RoomType roomType;
     @Column(nullable = false)
     private boolean isAvailable;
     @Column(nullable = false)
     private boolean isEnabled;
-
+    
+    //Entity relationship attributes
+    @NotNull(message = "RoomType cannot be null")
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
+    private RoomType roomType;
+    
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "reservationId", nullable = true)
+    private Reservation allocatedReservation;
+    
+    
     public Room() {
     }
 
