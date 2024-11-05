@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
-import util.enums.RateTypeEnum;
+import util.enums.RoomRateTypeEnum;
 
 
 @Entity
@@ -30,7 +30,7 @@ public class RoomRate implements Serializable {
     private String name;
     @NotNull(message = "RateTypeEnum cannot be null")
     @Column(nullable = false)
-    private RateTypeEnum rateType;
+    private RoomRateTypeEnum rateType;
     @NotNull(message = "RatePerNight cannot be null")
     @Column(nullable = false)
     private double ratePerNight;
@@ -54,7 +54,7 @@ public class RoomRate implements Serializable {
     public RoomRate() {
     }
 
-    public RoomRate(String name, RoomType roomType, RateTypeEnum rateType, double ratePerNight, boolean isPromotionOrPeakRate, Date startDate, Date endDate, boolean isEnabled) {
+    public RoomRate(String name, RoomType roomType, RoomRateTypeEnum rateType, double ratePerNight, boolean isPromotionOrPeakRate, Date startDate, Date endDate, boolean isEnabled) {
         this.name = name;
         this.roomType = roomType;
         this.rateType = rateType;
@@ -89,11 +89,11 @@ public class RoomRate implements Serializable {
         this.roomType = roomType;
     }
 
-    public RateTypeEnum getRateType() {
+    public RoomRateTypeEnum getRateType() {
         return rateType;
     }
 
-    public void setRateType(RateTypeEnum rateType) {
+    public void setRateType(RoomRateTypeEnum rateType) {
         this.rateType = rateType;
     }
 
