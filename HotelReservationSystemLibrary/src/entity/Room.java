@@ -37,20 +37,26 @@ public class Room implements Serializable {
     @JoinColumn(nullable = false)
     private RoomType roomType;
     
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "reservationId", nullable = true)
-    private Reservation allocatedReservation;
+    //@ManyToOne(optional = true)
+    //@JoinColumn(name = "reservationId", nullable = true)
+    //private Reservation allocatedReservation;
     
     
     public Room() {
     }
 
-    public Room(int roomNumber, RoomType roomType) {
+    public Room(int roomNumber, boolean isAvailable, boolean isEnabled) {
         this.roomNumber = roomNumber;
-        this.roomType = roomType;
-        this.isAvailable = true;
-        this.isEnabled = true;
+        this.isAvailable = isAvailable;
+        this.isEnabled = isEnabled;
     }
+
+    /*public Room(int roomNumber, RoomType roomType) {
+    *    this.roomNumber = roomNumber;
+    *    this.roomType = roomType;
+    *    this.isAvailable = true;
+    *    this.isEnabled = true;
+    }*/
 
     public Long getRoomId() {
         return roomId;

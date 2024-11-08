@@ -49,29 +49,38 @@ public class Reservation implements Serializable {
     @NotNull(message = "Customer cannot be null")
     @ManyToOne(optional = false)
     @JoinColumn(name = "customerId", nullable = false)
-    private Guest customer;
+    private Customer customer;
     
     @NotNull(message = "RoomType cannot be null")
     @ManyToOne(optional = false)
     @JoinColumn(name = "roomTypeId", nullable = false)
     private RoomType roomType;
     
-    @OneToMany(mappedBy = "allocatedReservation")
-    private List<Room> allocatedRooms;
+    //@OneToMany(mappedBy = "allocatedReservation")
+    //private List<Room> allocatedRooms;
 
     public Reservation() {
     }
 
-    public Reservation(Guest customer, RoomType roomType, int numRooms, Date checkInDate, Date checkOutDate, double amount) {
-        this.customer = customer;
-        this.roomType = roomType;
+    public Reservation(int numRooms, Date checkInDate, Date checkOutDate, ReservationStatusEnum status, double amount) {
         this.numRooms = numRooms;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
-        this.status = ReservationStatusEnum.RESERVED;
+        this.status = status;
         this.amount = amount;
-        this.allocatedRooms = new ArrayList<Room>();
+        
     }
+
+    /*public Reservation(Guest customer, RoomType roomType, int numRooms, Date checkInDate, Date checkOutDate, double amount) {
+    *    this.customer = customer;
+    *    this.roomType = roomType;
+    *    this.numRooms = numRooms;
+    *    this.checkInDate = checkInDate;
+    *    this.checkOutDate = checkOutDate;
+    *    this.status = ReservationStatusEnum.RESERVED;
+    *    this.amount = amount;
+    *    this.allocatedRooms = new ArrayList<Room>();
+    }*/
 
     
     public Long getReservationId() {
@@ -86,7 +95,7 @@ public class Reservation implements Serializable {
         return customer;
     }
 
-    public void setCustomer(Guest customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
@@ -138,13 +147,13 @@ public class Reservation implements Serializable {
         this.amount = amount;
     }
     
-    public List<Room> getAllocatedRooms() {
-        return allocatedRooms;
-    }
+    //ublic List<Room> getAllocatedRooms() {
+      //  return allocatedRooms;
+    //}
 
-    public void setAllocatedRooms(List<Room> allocatedRooms) {
-        this.allocatedRooms = allocatedRooms;
-    }
+    //public void setAllocatedRooms(List<Room> allocatedRooms) {
+      //  this.allocatedRooms = allocatedRooms;
+    //}
 
     @Override
     public int hashCode() {

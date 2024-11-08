@@ -7,6 +7,8 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +22,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import util.enums.RoomTypeEnum;
 
 
 @Entity
@@ -32,7 +35,7 @@ public class RoomType implements Serializable {
     private Long roomTypeId;
     @NotNull(message = "Name cannot be null")
     @Column(nullable = false)
-    private String name;
+    private RoomTypeEnum roomTypeName;
     private String description;
     @NotNull(message = "Size cannot be null")
     @Min(value = 1, message = "Size must be at least 1 sqm")
@@ -46,28 +49,50 @@ public class RoomType implements Serializable {
     @Column(nullable = false)
     private int capacity;
     private String amenities;
-    @NotNull(message = "RoomInventoryOverTime cannot be null")
     @Column(nullable = false)
-    private List<Integer> roomInventoryOverTime;
+    private Boolean isEnabled;
+    //@NotNull(message = "RoomInventoryOverTime cannot be null")
+    //@NotNull(message = "Room Type Availability cannot be null")
+    //@Column(nullable = false)
+    //private List<Integer> roomInventoryOverTime;
+    //private HashMap<Date, Integer> roomTypeAvailability;
     
+    @NotNull(message = "A room type must have availability list")
+    @OneToMany
+    @JoinColumn(name = "room_type_id") 
+    private List<RoomTypeAvailability> roomTypeAvailabilities = new ArrayList<>();
+
+
     //Entity relationship atttributes
     @NotNull(message = "roomRates cannot be null")
     @OneToMany(mappedBy = "roomType")
     private List<RoomRate> roomRates;
 
     public RoomType() {
+        //roomTypeAvailabilities = new ArrayList<>();
+        roomRates = new ArrayList<>();
     }
 
-    public RoomType(String name, String description, int size, String bed, int capacity, String amenities, List<Integer> roomInventoryOverTime) {
-        this.name = name;
+    public RoomType(RoomTypeEnum roomTypeName, String description, int size, String bed, int capacity, String amenities, Boolean isEnabled) {
+        this.roomTypeName = roomTypeName;
         this.description = description;
         this.size = size;
         this.bed = bed;
         this.capacity = capacity;
         this.amenities = amenities;
-        this.roomInventoryOverTime = roomInventoryOverTime;
-        this.roomRates = new ArrayList<RoomRate>();
+        this.isEnabled = isEnabled;
     }
+
+    /*public RoomType(String roomTypeName, String description, int size, String bed, int capacity, String amenities, List<Integer> roomInventoryOverTime) {
+    *    this.roomTypeName = roomTypeName;
+    *    this.description = description;
+    *    this.size = size;
+    *    this.bed = bed;
+    *    this.capacity = capacity;
+    *    this.amenities = amenities;
+    *    this.roomInventoryOverTime = roomInventoryOverTime;
+    *    this.roomRates = new ArrayList<RoomRate>();
+    }*/
 
     public Long getRoomTypeId() {
         return roomTypeId;
@@ -77,12 +102,12 @@ public class RoomType implements Serializable {
         this.roomTypeId = roomTypeId;
     }
     
-    public String getName() {
-        return name;
+    public RoomTypeEnum getRoomTypeName() {
+        return roomTypeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoomTypeName(RoomTypeEnum roomTypeName) {
+        this.roomTypeName = roomTypeName;
     }
 
     public String getDescription() {
@@ -124,14 +149,30 @@ public class RoomType implements Serializable {
     public void setAmenities(String amenities) {
         this.amenities = amenities;
     }
-
-    public List<Integer> getRoomInventoryOverTime() {
-        return roomInventoryOverTime;
+    
+    public Boolean getIsEnabled() {
+        return isEnabled;
     }
 
-    public void setRoomInventoryOverTime(List<Integer> roomInventoryOverTime) {
-        this.roomInventoryOverTime = roomInventoryOverTime;
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
     }
+
+    public List<RoomTypeAvailability> getRoomTypeAvailabilities() {
+        return roomTypeAvailabilities;
+    }
+
+    public void setRoomTypeAvailabilities(List<RoomTypeAvailability> roomTypeAvailabilities) {
+        this.roomTypeAvailabilities = roomTypeAvailabilities;
+    }
+
+    //public List<Integer> getRoomInventoryOverTime() {
+      //  return roomInventoryOverTime;
+    //}
+
+    //public void setRoomInventoryOverTime(List<Integer> roomInventoryOverTime) {
+      //  this.roomInventoryOverTime = roomInventoryOverTime;
+    //}
     
     public List<RoomRate> getRoomRates() {
         return roomRates;

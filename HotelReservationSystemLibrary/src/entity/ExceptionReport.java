@@ -35,11 +35,16 @@ public class ExceptionReport implements Serializable {
     public ExceptionReport() {
     }
 
-    public ExceptionReport(ExceptionReportTypeEnum type, String description, Reservation reservation) {
+    public ExceptionReport(ExceptionReportTypeEnum type, String description) {
         this.type = type;
-        this.reservation = reservation;
         this.description = description;
     }
+
+    //public ExceptionReport(ExceptionReportTypeEnum type, String description, Reservation reservation) {
+      //  this.type = type;
+    //    this.reservation = reservation;
+      //  this.description = description;
+    //}
 
     public Long getExceptionReportId() {
         return exceptionReportId;

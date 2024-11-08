@@ -70,7 +70,7 @@ public class ReservationSessionBean implements ReservationSessionBeanRemote, Res
 
             validateReservation(updatedReservation);
 
-            reservationToUpdate.setCustomer(updatedReservation.getCustomer());
+            //reservationToUpdate.setCustomer(updatedReservation.getCustomer());
             reservationToUpdate.setRoomType(updatedReservation.getRoomType());
             reservationToUpdate.setNumRooms(updatedReservation.getNumRooms());
             reservationToUpdate.setCheckInDate(updatedReservation.getCheckInDate());

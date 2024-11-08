@@ -28,6 +28,8 @@ public class RoomRate implements Serializable {
     @NotNull(message = "Name cannot be null")
     @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
+    private String roomTypeName;
     @NotNull(message = "RateTypeEnum cannot be null")
     @Column(nullable = false)
     private RoomRateTypeEnum rateType;
@@ -52,11 +54,12 @@ public class RoomRate implements Serializable {
     
     
     public RoomRate() {
+        roomType = new RoomType();
     }
 
-    public RoomRate(String name, RoomType roomType, RoomRateTypeEnum rateType, double ratePerNight, boolean isPromotionOrPeakRate, Date startDate, Date endDate, boolean isEnabled) {
+    public RoomRate(String name, String roomTypeName, RoomRateTypeEnum rateType, double ratePerNight, boolean isPromotionOrPeakRate, Date startDate, Date endDate, boolean isEnabled) {
         this.name = name;
-        this.roomType = roomType;
+        this.roomTypeName = roomTypeName;
         this.rateType = rateType;
         this.ratePerNight = ratePerNight;
         this.isPromotionOrPeakRate = isPromotionOrPeakRate;
@@ -64,6 +67,17 @@ public class RoomRate implements Serializable {
         this.endDate = endDate;
         this.isEnabled = isEnabled;
     }
+
+    /*public RoomRate(String name, RoomType roomType, RoomRateTypeEnum rateType, double ratePerNight, boolean isPromotionOrPeakRate, Date startDate, Date endDate, boolean isEnabled) {
+    *    this.name = name;
+    *    this.roomType = roomType;
+    *    this.rateType = rateType;
+    *    this.ratePerNight = ratePerNight;
+    *    this.isPromotionOrPeakRate = isPromotionOrPeakRate;
+    *    this.startDate = startDate;
+    *    this.endDate = endDate;
+    *    this.isEnabled = isEnabled;
+    }*/
 
     public Long getRoomRateId() {
         return roomRateId;

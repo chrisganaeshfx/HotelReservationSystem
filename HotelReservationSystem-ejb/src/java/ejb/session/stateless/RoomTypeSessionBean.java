@@ -77,14 +77,15 @@ public class RoomTypeSessionBean implements RoomTypeSessionBeanRemote, RoomTypeS
                 throw new InvalidRoomTypeUpdateException("Room capacity must be between 1 and 20 pax.");
             }
 
-            roomTypeToUpdate.setName(updatedRoomType.getName());
+            roomTypeToUpdate.setRoomTypeName(updatedRoomType.getRoomTypeName());
             roomTypeToUpdate.setDescription(updatedRoomType.getDescription());
             roomTypeToUpdate.setSize(updatedRoomType.getSize());
             roomTypeToUpdate.setBed(updatedRoomType.getBed());
             roomTypeToUpdate.setCapacity(updatedRoomType.getCapacity());
             roomTypeToUpdate.setAmenities(updatedRoomType.getAmenities());
-            roomTypeToUpdate.setRoomInventoryOverTime(updatedRoomType.getRoomInventoryOverTime());
-            roomTypeToUpdate.setRoomRates(roomTypeToUpdate.getRoomRates());
+            //roomTypeToUpdate.setRoomInventoryOverTime(updatedRoomType.getRoomInventoryOverTime());
+            roomTypeToUpdate.setRoomTypeAvailabilities(updatedRoomType.getRoomTypeAvailabilities());
+            roomTypeToUpdate.setRoomRates(updatedRoomType.getRoomRates());
         } else {
             throw new InvalidRoomTypeUpdateException("Room type information to be updated is invalid or incomplete!");
         }
