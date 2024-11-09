@@ -56,13 +56,19 @@ public class Reservation implements Serializable {
     @JoinColumn(name = "roomTypeId", nullable = false)
     private RoomType roomType;
     
-    //@OneToMany(mappedBy = "allocatedReservation")
-    //private List<Room> allocatedRooms;
+    @OneToMany
+    private List<ExceptionReport> exceptionReports;
+    
+    @OneToMany(mappedBy = "allocatedReservation")
+    private List<Room> allocatedRooms;
 
     public Reservation() {
+        allocatedRooms = new ArrayList<>();
+        exceptionReports = new ArrayList<>();
     }
 
     public Reservation(int numRooms, Date checkInDate, Date checkOutDate, ReservationStatusEnum status, double amount) {
+        this();
         this.numRooms = numRooms;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
@@ -147,13 +153,21 @@ public class Reservation implements Serializable {
         this.amount = amount;
     }
     
-    //ublic List<Room> getAllocatedRooms() {
-      //  return allocatedRooms;
-    //}
+    public List<Room> getAllocatedRooms() {
+        return allocatedRooms;
+    }
 
-    //public void setAllocatedRooms(List<Room> allocatedRooms) {
-      //  this.allocatedRooms = allocatedRooms;
-    //}
+    public void setAllocatedRooms(List<Room> allocatedRooms) {
+       this.allocatedRooms = allocatedRooms;
+    }
+    
+    public List<ExceptionReport> getExceptionReports() {
+        return exceptionReports;
+    }
+
+    public void setExceptionReports(List<ExceptionReport> exceptionReports) {
+        this.exceptionReports = exceptionReports;
+    }
 
     @Override
     public int hashCode() {

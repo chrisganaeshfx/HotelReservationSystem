@@ -17,7 +17,7 @@ import javax.persistence.Id;
  * @author minseokim
  */
 @Entity
-public class RoomTypeAvailability implements Serializable {
+public class RoomTypeInventoryByDate implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -28,10 +28,10 @@ public class RoomTypeAvailability implements Serializable {
     @Column(nullable = false)
     private int availability;
 
-    public RoomTypeAvailability() {
+    public RoomTypeInventoryByDate() {
     }
 
-    public RoomTypeAvailability(Date reservationDate, int availability) {
+    public RoomTypeInventoryByDate(Date reservationDate, int availability) {
         this.reservationDate = reservationDate;
         this.availability = availability;
     }
@@ -72,10 +72,10 @@ public class RoomTypeAvailability implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the roomTypeAvailabilityId fields are not set
-        if (!(object instanceof RoomTypeAvailability)) {
+        if (!(object instanceof RoomTypeInventoryByDate)) {
             return false;
         }
-        RoomTypeAvailability other = (RoomTypeAvailability) object;
+        RoomTypeInventoryByDate other = (RoomTypeInventoryByDate) object;
         if ((this.roomTypeAvailabilityId == null && other.roomTypeAvailabilityId != null) || (this.roomTypeAvailabilityId != null && !this.roomTypeAvailabilityId.equals(other.roomTypeAvailabilityId))) {
             return false;
         }

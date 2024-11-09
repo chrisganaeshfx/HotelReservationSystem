@@ -70,7 +70,7 @@ public class ExceptionReportSessionBean implements ExceptionReportSessionBeanRem
             validateExceptionReport(updatedExceptionReport);
 
             exceptionReportToUpdate.setType(updatedExceptionReport.getType());
-            exceptionReportToUpdate.setReservation(updatedExceptionReport.getReservation());
+            //exceptionReportToUpdate.setReservation(updatedExceptionReport.getReservation());
             exceptionReportToUpdate.setDescription(updatedExceptionReport.getDescription());
         } else {
             throw new InvalidExceptionReportException("Exception report information to be updated is invalid or incomplete!");
@@ -91,9 +91,9 @@ public class ExceptionReportSessionBean implements ExceptionReportSessionBeanRem
         if (exceptionReport.getType() == null) {
             throw new InvalidExceptionReportException("ExceptionReportTypeEnum cannot be null.");
         }
-        if (exceptionReport.getReservation() == null) {
-            throw new InvalidExceptionReportException("Reservation cannot be null.");
-        }
+        //if (exceptionReport.getReservation() == null) {
+          //  throw new InvalidExceptionReportException("Reservation cannot be null.");
+        //}
     }
 }
 

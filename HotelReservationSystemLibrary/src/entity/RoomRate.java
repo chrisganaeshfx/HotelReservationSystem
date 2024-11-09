@@ -28,8 +28,8 @@ public class RoomRate implements Serializable {
     @NotNull(message = "Name cannot be null")
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
-    private String roomTypeName;
+    //@Column(nullable = false)
+    //private String roomTypeName;
     @NotNull(message = "RateTypeEnum cannot be null")
     @Column(nullable = false)
     private RoomRateTypeEnum rateType;
@@ -54,12 +54,12 @@ public class RoomRate implements Serializable {
     
     
     public RoomRate() {
-        roomType = new RoomType();
+        //roomType = new RoomType();
     }
 
-    public RoomRate(String name, String roomTypeName, RoomRateTypeEnum rateType, double ratePerNight, boolean isPromotionOrPeakRate, Date startDate, Date endDate, boolean isEnabled) {
+    public RoomRate(String name, RoomRateTypeEnum rateType, double ratePerNight, boolean isPromotionOrPeakRate, Date startDate, Date endDate, boolean isEnabled) {
         this.name = name;
-        this.roomTypeName = roomTypeName;
+        //this.roomTypeName = roomTypeName;
         this.rateType = rateType;
         this.ratePerNight = ratePerNight;
         this.isPromotionOrPeakRate = isPromotionOrPeakRate;

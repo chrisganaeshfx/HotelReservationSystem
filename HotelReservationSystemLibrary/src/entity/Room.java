@@ -37,9 +37,9 @@ public class Room implements Serializable {
     @JoinColumn(nullable = false)
     private RoomType roomType;
     
-    //@ManyToOne(optional = true)
-    //@JoinColumn(name = "reservationId", nullable = true)
-    //private Reservation allocatedReservation;
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "reservationId", nullable = true)
+    private Reservation allocatedReservation;
     
     
     public Room() {
@@ -96,6 +96,14 @@ public class Room implements Serializable {
 
     public void setIsEnabled(boolean isEnabled) {
         this.isEnabled = isEnabled;
+    }
+    
+    public Reservation getAllocatedReservation() {
+        return allocatedReservation;
+    }
+
+    public void setAllocatedReservation(Reservation allocatedReservation) {
+        this.allocatedReservation = allocatedReservation;
     }
     
     @Override

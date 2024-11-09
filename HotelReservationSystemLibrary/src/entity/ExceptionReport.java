@@ -27,10 +27,10 @@ public class ExceptionReport implements Serializable {
     private String description;
     
     //Entity relationship attributes
-    @NotNull(message = "Reservation cannot be null")
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "reservationId", nullable = false)
-    private Reservation reservation;    
+    //@NotNull(message = "Reservation cannot be null")
+    //@ManyToOne(optional = false)
+    //@JoinColumn(name = "reservationId", nullable = false)
+    //private Reservation reservation;    
 
     public ExceptionReport() {
     }
@@ -70,13 +70,13 @@ public class ExceptionReport implements Serializable {
         this.description = description;
     }
   
-    public Reservation getReservation() {
-        return reservation;
-    }
+    //public Reservation getReservation() {
+      //  return reservation;
+    //}
 
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
+    //public void setReservation(Reservation reservation) {
+    //    this.reservation = reservation;
+    //}
 
     
     @Override

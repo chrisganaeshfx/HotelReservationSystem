@@ -55,12 +55,11 @@ public class RoomType implements Serializable {
     //@NotNull(message = "Room Type Availability cannot be null")
     //@Column(nullable = false)
     //private List<Integer> roomInventoryOverTime;
-    //private HashMap<Date, Integer> roomTypeAvailability;
     
     @NotNull(message = "A room type must have availability list")
     @OneToMany
     @JoinColumn(name = "room_type_id") 
-    private List<RoomTypeAvailability> roomTypeAvailabilities = new ArrayList<>();
+    private List<RoomTypeInventoryByDate> roomTypeAvailabilities = new ArrayList<>();
 
 
     //Entity relationship atttributes
@@ -74,6 +73,7 @@ public class RoomType implements Serializable {
     }
 
     public RoomType(RoomTypeEnum roomTypeName, String description, int size, String bed, int capacity, String amenities, Boolean isEnabled) {
+        this();
         this.roomTypeName = roomTypeName;
         this.description = description;
         this.size = size;
@@ -158,11 +158,11 @@ public class RoomType implements Serializable {
         this.isEnabled = isEnabled;
     }
 
-    public List<RoomTypeAvailability> getRoomTypeAvailabilities() {
+    public List<RoomTypeInventoryByDate> getRoomTypeAvailabilities() {
         return roomTypeAvailabilities;
     }
 
-    public void setRoomTypeAvailabilities(List<RoomTypeAvailability> roomTypeAvailabilities) {
+    public void setRoomTypeAvailabilities(List<RoomTypeInventoryByDate> roomTypeAvailabilities) {
         this.roomTypeAvailabilities = roomTypeAvailabilities;
     }
 
