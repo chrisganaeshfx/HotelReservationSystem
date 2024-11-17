@@ -1,6 +1,5 @@
 package managementclient;
 
-import ejb.session.stateless.EmployeeSessionBeanRemote;
 import ejb.session.stateless.UserSessionBeanRemote;
 import entity.Employee;
 import entity.Partner;
@@ -168,7 +167,7 @@ public class SystemAdministration {
         
         try {
             Long newPartnerId = userSessionBeanRemote.createNewPartner(newPartner);
-            System.out.println("Successfully created " + newPartner.getRole() + " " + newPartner.getUsername() + " with Id: " + newPartnerId + "!\n");
+            System.out.println("Successfully created " + " " + newPartner.getUsername() + " with Id: " + newPartnerId + "!\n");
         }
         catch(PartnerExistException | UnknownPersistenceException ex) {
             System.out.println("Error occured: " + ex.getMessage() + "\n");

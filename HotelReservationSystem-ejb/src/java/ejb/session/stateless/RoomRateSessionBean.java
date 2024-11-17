@@ -8,6 +8,7 @@ package ejb.session.stateless;
 import entity.Reservation;
 import entity.Room;
 import entity.RoomRate;
+import entity.RoomType;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -35,9 +36,9 @@ public class RoomRateSessionBean implements RoomRateSessionBeanRemote, RoomRateS
             em.persist(newRoomRate);
             em.flush();
             Long newRoomRateId = newRoomRate.getRoomRateId();
-            String roomType = newRoomRate.getRoomType();
+            String roomType = newRoomRate.getRoomType().toString();
             RoomRateTypeEnum rateType = newRoomRate.getRateType();
-            System.out.println("Successfully created " + roomType + " " + rateType + " RoomRate with Id " + newRoomRateId + "!\n");
+            System.out.println("Successfully created " + roomType.toString() + " " + rateType + " RoomRate with Id " + newRoomRateId + "!\n");
             return newRoomRateId;
         } catch (PersistenceException ex) {
             if (ex.getCause() != null && ex.getCause().getClass().getName().equals("org.eclipse.persistence.exceptions.DatabaseException")) {

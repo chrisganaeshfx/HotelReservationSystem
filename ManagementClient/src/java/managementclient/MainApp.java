@@ -91,7 +91,7 @@ public class MainApp {
 
         switch (currentRole) {
             case SYSTEM_ADMINISTRATOR:
-                SystemAdministration systemAdministration = new SystemAdministration(employeeSessionBeanRemote);
+                SystemAdministration systemAdministration = new SystemAdministration(userSessionBeanRemote);
                 systemAdministration.showMenu(currentEmployee);
                 break;
             case OPERATION_MANAGER:
@@ -110,8 +110,12 @@ public class MainApp {
                 break;
             case GUEST_RELATION_OFFICER:
                 FrontOffice frontOffice = new FrontOffice(
-                    userSessionBeanRemote,
-                    searchAndReserveSessionBeanRemote);
+            roomTypeSessionBeanRemote,
+            roomRateSessionBeanRemote,
+            roomSessionBeanRemote,
+            allocateAndExceptionReportSessionBeanRemote,
+            searchAndReserveSessionBeanRemote,
+            userSessionBeanRemote);
                 frontOffice.showMenu(currentEmployee);
                 break;
             default:

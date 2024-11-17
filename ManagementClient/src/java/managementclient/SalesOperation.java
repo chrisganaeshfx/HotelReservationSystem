@@ -1,3 +1,4 @@
+package managementclient;
 
 import ejb.session.stateless.RoomRateSessionBeanRemote;
 import ejb.session.stateless.RoomTypeSessionBeanRemote;

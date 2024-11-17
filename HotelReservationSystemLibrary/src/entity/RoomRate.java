@@ -28,7 +28,7 @@ public class RoomRate implements Serializable {
     
     @ManyToOne
     @JoinColumn(nullable = false)
-    private String roomType;
+    private RoomType roomType;
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -47,7 +47,7 @@ public class RoomRate implements Serializable {
     public RoomRate() {
     }
 
-    public RoomRate(String roomType, RoomRateTypeEnum rateType, boolean isPromotionOrPeakRate, String name, double ratePerNight, Date startDate, Date endDate) {
+    public RoomRate(RoomType roomType, RoomRateTypeEnum rateType, boolean isPromotionOrPeakRate, String name, double ratePerNight, Date startDate, Date endDate) {
         this.roomType = roomType;
         this.rateType = rateType;
         this.isPromotionOrPeakRate = isPromotionOrPeakRate;
@@ -66,11 +66,11 @@ public class RoomRate implements Serializable {
         this.roomRateId = roomRateId;
     }
 
-    public String getRoomType() {
+    public RoomType getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(String roomType) {
+    public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
     }
 

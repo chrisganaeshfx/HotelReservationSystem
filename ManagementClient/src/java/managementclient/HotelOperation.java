@@ -156,7 +156,7 @@ public class HotelOperation {
         System.out.print("Enter choice> ");
         int selection = Integer.parseInt(scanner.nextLine());
         RoomType nextHighestRoomType = roomTypes.get(selection - 1); // Fetch the selected RoomType
-        Long nextHighestRoomTypeId = nextHighestRoomType.getRoomTypeId();
+        String nextHighestRoomTypeName = nextHighestRoomType.getName();
 
         System.out.print("Enter Room Type Description> ");
         String description = scanner.nextLine();
@@ -181,7 +181,7 @@ public class HotelOperation {
         boolean isEnabled = (enabledChoice == 1);
 
         roomType.setName(name);
-        roomType.setNextHighestRoomTypeId(nextHighestRoomTypeId);
+        roomType.setNextHighestRoomTypeName(nextHighestRoomTypeName);
         roomType.setDescription(description);
         roomType.setSize(size);
         roomType.setBed(bed);
@@ -223,7 +223,7 @@ public class HotelOperation {
             System.out.println("----------------------------------");
             System.out.println("RoomTypeId: " + roomType.getRoomTypeId());
             System.out.println("Name: " + roomType.getName());
-            System.out.println("NextHighestRoomType Name: " + roomTypeSessionBeanRemote.retrieveRoomTypeById(roomType.getNextHighestRoomTypeId()).getName());
+            System.out.println("NextHighestRoomType Name: " + roomType.getName());
             System.out.println("Description: " + roomType.getDescription());
             System.out.println("Size: " + roomType.getSize());
             System.out.println("Bed: " + roomType.getBed());

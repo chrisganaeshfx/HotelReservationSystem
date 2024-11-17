@@ -1,3 +1,4 @@
+package managementclient;
 
 import ejb.session.stateless.AllocateAndExceptionReportSessionBeanRemote;
 import ejb.session.stateless.RoomRateSessionBeanRemote;

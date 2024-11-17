@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/StatefulEjbClass.java to edit this template
- */
 package ejb.session.stateless;
 
 import entity.Reservation;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Scanner;  // Import Scanner here
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -34,9 +30,8 @@ public class SearchAndReserveSessionBean implements SearchAndReserveSessionBeanR
     private RoomRateSessionBeanLocal roomRateSessionBeanLocal;
     @EJB
     private UserSessionBeanLocal userSessionBeanLocal;
-    @EJB
     
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);  // Instantiate Scanner here
     private Date searchCID = new Date();
     private Date searchCOD = new Date();
     private int searchNumRooms = 0;
@@ -114,6 +109,4 @@ public class SearchAndReserveSessionBean implements SearchAndReserveSessionBeanR
         }
         return reservation;
     }
-    
-
 }

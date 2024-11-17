@@ -94,7 +94,7 @@ public class RoomTypeSessionBean implements RoomTypeSessionBeanRemote, RoomTypeS
             }
 
             roomTypeToUpdate.setName(updatedRoomType.getName());
-            roomTypeToUpdate.setNextHighestRoomTypeId(updatedRoomType.getNextHighestRoomTypeId());
+            roomTypeToUpdate.setNextHighestRoomTypeName(updatedRoomType.getNextHighestRoomTypeName());
             roomTypeToUpdate.setDescription(updatedRoomType.getDescription());
             roomTypeToUpdate.setSize(updatedRoomType.getSize());
             roomTypeToUpdate.setBed(updatedRoomType.getBed());
