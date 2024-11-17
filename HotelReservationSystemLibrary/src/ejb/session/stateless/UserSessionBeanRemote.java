@@ -32,7 +32,7 @@ public interface UserSessionBeanRemote {
 
     public Employee retrieveEmployeeByUsername(String username) throws EmployeeNotFoundException;
 
-    public Employee employeeLogin(String username, String password) throws InvalidLoginCredentialException;
+    public Employee employeeLogin() throws InvalidLoginCredentialException;
 
     public Long createNewCustomer(Customer newCustomer) throws CustomerExistException, UnknownPersistenceException;
 

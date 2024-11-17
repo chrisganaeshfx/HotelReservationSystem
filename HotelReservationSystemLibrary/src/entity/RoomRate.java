@@ -47,7 +47,7 @@ public class RoomRate implements Serializable {
     public RoomRate() {
     }
 
-    public RoomRate(String roomType, RoomRateTypeEnum rateType, boolean isPromotionOrPeakRate, String name, double ratePerNight, Date startDate, Date endDate, boolean isEnabled) {
+    public RoomRate(String roomType, RoomRateTypeEnum rateType, boolean isPromotionOrPeakRate, String name, double ratePerNight, Date startDate, Date endDate) {
         this.roomType = roomType;
         this.rateType = rateType;
         this.isPromotionOrPeakRate = isPromotionOrPeakRate;
@@ -55,7 +55,7 @@ public class RoomRate implements Serializable {
         this.ratePerNight = ratePerNight;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.isEnabled = isEnabled;
+        this.isEnabled = true;
     }
 
     public Long getRoomRateId() {
@@ -153,7 +153,7 @@ public class RoomRate implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.RoomRate[ id=" + getRoomRateId() + " ]";
+        return name + "(Id: " + roomRateId + ")";
     }
 
 }

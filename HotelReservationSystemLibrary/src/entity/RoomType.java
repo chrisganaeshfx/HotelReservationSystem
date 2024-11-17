@@ -34,7 +34,7 @@ public class RoomType implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
     @Column(nullable = false)
-    private String nextHighestRoomType;
+    private Long nextHighestRoomTypeId; // Store the ID of the next highest room type
     @Column(nullable = false)
     private String description;
     @Column(nullable = false)
@@ -55,10 +55,10 @@ public class RoomType implements Serializable {
         this.roomRates = new ArrayList<>();
     }
 
-    public RoomType(String name, String nextHighestRoomType, String description, String size, String bed, String capacity, String amenities) {
+    public RoomType(String name, Long nextHighestRoomTypeId, String description, String size, String bed, String capacity, String amenities) {
         this();
         this.name = name;
-        this.nextHighestRoomType = nextHighestRoomType;
+        this.nextHighestRoomTypeId = nextHighestRoomTypeId;
         this.description = description;
         this.size = size;
         this.bed = bed;
@@ -83,12 +83,12 @@ public class RoomType implements Serializable {
         this.name = name;
     }
     
-    public String getNextHighestRoomType() {
-        return nextHighestRoomType;
+    public Long getNextHighestRoomTypeId() {
+        return nextHighestRoomTypeId;
     }
 
-    public void setNextHighestRoomType(String nextHighestRoomType) {
-        this.nextHighestRoomType = nextHighestRoomType;
+    public void setNextHighestRoomTypeId(Long nextHighestRoomTypeId) {
+        this.nextHighestRoomTypeId = nextHighestRoomTypeId;
     }
 
     public String getDescription() {
@@ -161,7 +161,7 @@ public class RoomType implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.RoomType[ id=" + roomTypeId + " ]";
+        return name + "(Id: " + roomTypeId + ")";
     }
 
     public List<RoomRate> getRoomRates() {

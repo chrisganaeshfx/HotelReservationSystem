@@ -29,6 +29,7 @@ public class Room implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private RoomType roomType;
+    
     @Min(value = 1)
     @Max(value = 99)
     @Column(nullable = false)
@@ -44,20 +45,14 @@ public class Room implements Serializable {
     @Column(nullable = false)
     private boolean isEnabled;
     
-    //Entity relationship attributes
-    @ManyToOne
-    @JoinColumn(name = "reservationId", nullable = true)
-    private Reservation allocatedReservation;
-    
-    
     public Room() {
     }
 
-    public Room(int floor, int unit, String roomType) {
+    public Room(int floor, int unit, boolean isAvailable, boolean isEnabled) {
         this.floor = floor;
         this.unit = unit;
         this.roomNumber = String.format("%02d%02d", floor, unit);
-        this.isAvailable = true;
+        this.isAvailable = isAvailable;
         this.isEnabled = true;
     }
 
@@ -101,14 +96,6 @@ public class Room implements Serializable {
         this.isEnabled = isEnabled;
     }
     
-    public Reservation getAllocatedReservation() {
-        return allocatedReservation;
-    }
-
-    public void setAllocatedReservation(Reservation allocatedReservation) {
-        this.allocatedReservation = allocatedReservation;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -131,7 +118,7 @@ public class Room implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Room[ id=" + getRoomId() + " ]";
+        return roomNumber + "(Id: " + roomId + ")";
     }
 
     public int getFloor() {

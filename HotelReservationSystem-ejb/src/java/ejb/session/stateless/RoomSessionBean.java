@@ -4,6 +4,7 @@ import entity.Reservation;
 import entity.Room;
 import entity.RoomType;
 import java.util.List;
+import java.util.Scanner;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -73,6 +74,16 @@ public class RoomSessionBean implements RoomSessionBeanRemote, RoomSessionBeanLo
     @Override
     public List<Room> retrieveAllEnabledRooms() {
         Query query = em.createQuery("SELECT r FROM Room r WHERE r.isEnabled = true ORDER BY r.roomType, r.roomId ASC");
+        List<Room> rooms = query.getResultList();
+        for(Room r : rooms) {
+            r.getRoomType();
+        }
+        return rooms;
+    }
+    
+    @Override
+    public List<Room> retrieveAllRooms() {
+        Query query = em.createQuery("SELECT r FROM Room r ORDER BY r.roomType, r.roomId ASC");
         List<Room> rooms = query.getResultList();
         for(Room r : rooms) {
             r.getRoomType();

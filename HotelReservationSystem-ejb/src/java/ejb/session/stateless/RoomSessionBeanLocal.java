@@ -37,4 +37,6 @@ public interface RoomSessionBeanLocal {
 
     public void deleteRoom(Long roomId) throws RoomNotFoundException, DeleteRoomException;
 
+    public List<Room> retrieveAllRooms();
+
 }

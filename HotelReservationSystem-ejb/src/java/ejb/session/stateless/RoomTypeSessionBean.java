@@ -4,6 +4,7 @@ import entity.Room;
 import entity.RoomType;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +15,7 @@ import util.exceptions.roomtype.DeleteRoomTypeException;
 import util.exceptions.roomtype.InvalidRoomTypeUpdateException;
 import util.exceptions.roomtype.RoomTypeExistException;
 import util.exceptions.roomtype.RoomTypeNotFoundException;
+import util.helper.ClientHelper;
 
 @Stateless
 public class RoomTypeSessionBean implements RoomTypeSessionBeanRemote, RoomTypeSessionBeanLocal {
@@ -43,6 +45,16 @@ public class RoomTypeSessionBean implements RoomTypeSessionBeanRemote, RoomTypeS
                 throw new UnknownPersistenceException(ex.getMessage());
             }
         }
+    }
+    
+    @Override
+    public List<RoomType> retrieveAllRoomTypes() {
+        Query query = em.createQuery("SELECT rt FROM RoomType rt ORDER BY rt.roomTypeId ASC");
+        List<RoomType> enabledRoomTypes = query.getResultList();
+        for (RoomType rt : enabledRoomTypes) {
+            rt.getRoomRates().size();
+        }
+        return enabledRoomTypes;
     }
     
     @Override
@@ -82,7 +94,7 @@ public class RoomTypeSessionBean implements RoomTypeSessionBeanRemote, RoomTypeS
             }
 
             roomTypeToUpdate.setName(updatedRoomType.getName());
-            roomTypeToUpdate.setNextHighestRoomType(updatedRoomType.getNextHighestRoomType());
+            roomTypeToUpdate.setNextHighestRoomTypeId(updatedRoomType.getNextHighestRoomTypeId());
             roomTypeToUpdate.setDescription(updatedRoomType.getDescription());
             roomTypeToUpdate.setSize(updatedRoomType.getSize());
             roomTypeToUpdate.setBed(updatedRoomType.getBed());

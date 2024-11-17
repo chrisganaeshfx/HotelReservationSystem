@@ -10,6 +10,7 @@ import entity.Employee;
 import entity.Guest;
 import entity.Partner;
 import java.util.List;
+import java.util.Scanner;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,11 +30,15 @@ import util.exceptions.partner.PartnerNotFoundException;
 @Stateless
 public class UserSessionBean implements UserSessionBeanRemote, UserSessionBeanLocal {
 
+    
     @PersistenceContext(unitName = "HotelReservationSystem-ejbPU")
     private EntityManager em;
+    private Scanner scanner = new Scanner(System.in);
 
     public UserSessionBean() {
     }
+    
+    // Employee methods
     
     @Override
     public Long createNewEmployee(Employee newEmployee) throws EmployeeExistException, UnknownPersistenceException {
@@ -84,18 +89,30 @@ public class UserSessionBean implements UserSessionBeanRemote, UserSessionBeanLo
     }
     
     @Override
-    public Employee employeeLogin(String username, String password) throws InvalidLoginCredentialException  {
-        try {
-            Employee employee = retrieveEmployeeByUsername(username);
-            if (employee.getPassword().equals(password)) {
-                return employee;
-            } else {
+    public Employee employeeLogin() throws InvalidLoginCredentialException  {
+        scanner.nextLine();
+        System.out.print("Enter username> ");
+        String username = scanner.nextLine().trim();
+        System.out.print("Enter password> ");
+        String password = scanner.nextLine().trim();
+        
+        if(username.length() > 0 && password.length() > 0) {
+            try {
+                Employee employee = retrieveEmployeeByUsername(username);
+                if (employee.getPassword().equals(password)) {
+                    return employee;
+                } else {
+                    throw new InvalidLoginCredentialException("Invalid username or password.");
+                }
+            } catch (EmployeeNotFoundException ex) {
                 throw new InvalidLoginCredentialException("Invalid username or password.");
             }
-        } catch (EmployeeNotFoundException ex) {
-            throw new InvalidLoginCredentialException("Invalid username or password.");
+        } else {
+            throw new InvalidLoginCredentialException("Missing login credential!");
         }
     }    
+    
+    // Customer methods 
     
     @Override
     public Long createNewCustomer(Customer newCustomer) throws CustomerExistException, UnknownPersistenceException {
@@ -144,6 +161,7 @@ public class UserSessionBean implements UserSessionBeanRemote, UserSessionBeanLo
         }
     }
     
+    // Guest methods
     
     @Override
     public Long createNewGuest(Guest newGuest) throws GuestExistException, UnknownPersistenceException {
@@ -229,6 +247,8 @@ public class UserSessionBean implements UserSessionBeanRemote, UserSessionBeanLo
         em.flush();
         return customer.getGuestId();
     }
+    
+    // Partner methods 
     
     @Override
     public Long createNewPartner(Partner newPartner) throws PartnerExistException, UnknownPersistenceException {

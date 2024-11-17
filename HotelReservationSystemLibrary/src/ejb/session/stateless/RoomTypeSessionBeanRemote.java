@@ -25,6 +25,8 @@ import util.exceptions.roomtype.RoomTypeNotFoundException;
 public interface RoomTypeSessionBeanRemote {
 
     public Long createNewRoomType(RoomType newRoomType) throws RoomTypeExistException, UnknownPersistenceException;
+    
+    public List<RoomType> retrieveAllRoomTypes();
 
     public List<RoomType> retrieveAllEnabledRoomTypes();
 

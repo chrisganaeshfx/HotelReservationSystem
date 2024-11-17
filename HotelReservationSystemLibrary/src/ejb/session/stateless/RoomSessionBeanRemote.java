@@ -35,4 +35,6 @@ public interface RoomSessionBeanRemote {
     public void disableRoom(Long roomId) throws RoomNotFoundException;
 
     public void deleteRoom(Long roomId) throws RoomNotFoundException, DeleteRoomException;
+    
+    public List<Room> retrieveAllRooms();
 }

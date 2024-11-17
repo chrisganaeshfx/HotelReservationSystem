@@ -19,6 +19,8 @@ public interface RoomTypeSessionBeanLocal {
 
     public Long createNewRoomType(RoomType newRoomType) throws RoomTypeExistException, UnknownPersistenceException;
 
+    public List<RoomType> retrieveAllRoomTypes();
+    
     public List<RoomType> retrieveAllEnabledRoomTypes();
 
     public RoomType retrieveRoomTypeById(Long roomTypeId) throws RoomTypeNotFoundException;
@@ -30,5 +32,6 @@ public interface RoomTypeSessionBeanLocal {
     public void disableRoomType(Long roomTypeId) throws RoomTypeNotFoundException;
 
     public void deleteRoomType(Long roomTypeId) throws RoomTypeNotFoundException, DeleteRoomTypeException;
+
 
 }
